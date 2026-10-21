@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>LA ROSA — Menu Digital</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --pink: #ff4fb7;
+            --rose: #ff9ed8;
+            --text: #fff1fa;
+            --muted: #d5b8ca
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: radial-gradient(ellipse at 50% 0%, #4b1235, #180b17 40%, #080609 85%);
+            color: var(--text);
+            font-family: Inter, Arial, sans-serif
+        }
+
+        header {
+            text-align: center;
+            padding: 28px 15px 22px;
+            background: linear-gradient(130deg, #170814, #351027, #110710);
+            border-bottom: 1px solid #7c2b58
+        }
+
+        h1 {
+            font: 700 clamp(42px, 8vw, 76px)/.9 'Cormorant Garamond', Georgia, serif;
+            letter-spacing: .12em;
+            color: #ffd6ed;
+            text-shadow: 0 0 8px #ff5ab8, 0 0 32px #e91c8b;
+            margin: 8px 0
+        }
+
+        .sub {
+            letter-spacing: .22em;
+            color: var(--rose);
+            font-size: 12px;
+            margin: 15px
+        }
+
+        .pill {
+            display: inline-block;
+            border: 1px solid #9e3e72;
+            background: #1a0b17;
+            padding: 9px 13px;
+            border-radius: 99px;
+            font-size: 12px;
+            color: #ffe5f4;
+            margin: 4px
+        }
+
+        .toolbar {
+            position: sticky;
+            top: 0;
+            z-index: 5;
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 11px;
+            background: #10070eeb;
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #54203d
+        }
+
+        .toolbar input,
+        .toolbar select,
+        .toolbar button {
+            background: #21101d;
+            color: #fff;
+            border: 1px solid #753354;
+            border-radius: 11px;
+            padding: 10px 12px
+        }
+
+        .toolbar input {
+            width: min(320px, 65vw)
+        }
+
+        main {
+            max-width: 1250px;
+            margin: auto;
+            padding: 20px 15px 40px
+        }
+
+        .nav {
+            display: flex;
+            gap: 8px;
+            overflow: auto;
+            padding: 5px 0 18px
+        }
+
+        .nav a {
+            white-space: nowrap;
+            text-decoration: none;
+            color: #ffd9ef;
+            border: 1px solid #70304f;
+            padding: 9px 12px;
+            border-radius: 99px;
+            font-size: 12px;
+            background: #1a0d18
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 17px;
+            perspective: 1200px
+        }
+
+        .card {
+            background: linear-gradient(145deg, #291123, #120a12 75%);
+            border: 1px solid #81345d;
+            border-radius: 18px;
+            padding: 16px;
+            min-width: 0;
+            transform-style: preserve-3d;
+            transition: transform .18s, box-shadow .2s;
+            box-shadow: 0 13px 30px #0008;
+            overflow: hidden
+        }
+
+        .card:hover {
+            border-color: #ff7dca;
+            box-shadow: 0 20px 40px #000b, 0 0 24px #ff168e22
+        }
+
+        .head {
+            display: flex;
+            gap: 9px;
+            align-items: center;
+            padding-bottom: 10px;
+            margin-bottom: 5px;
+            border-bottom: 1px solid #5d2945
+        }
+
+        .head h2 {
+            font: 700 25px 'Cormorant Garamond', Georgia, serif;
+            color: var(--rose);
+            margin: 0
+        }
+
+        .emoji {
+            font-size: 24px
+        }
+
+        .item {
+            padding: 8px 0;
+            border-bottom: 1px dashed #482239
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            gap: 9px;
+            align-items: baseline
+        }
+
+        .name {
+            font-weight: 650;
+            font-size: 13px
+        }
+
+        .price {
+            font-size: 13px;
+            font-weight: 800;
+            color: #ff69bd;
+            white-space: nowrap
+        }
+
+        .desc {
+            font-size: 11px;
+            color: #cdb5c7;
+            line-height: 1.45;
+            margin-top: 4px
+        }
+
+        .empty {
+            text-align: center;
+            color: var(--muted);
+            display: none
+        }
+
+        .hookah {
+            margin-top: 20px
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #1b0d19;
+            font-size: 13px
+        }
+
+        .table th,
+        .table td {
+            padding: 12px;
+            border: 1px solid #60304a;
+            text-align: left
+        }
+
+        .table th {
+            color: #ff9ed8
+        }
+
+        .table td:not(:first-child) {
+            text-align: center;
+            color: #ff69bd;
+            font-weight: 700
+        }
+
+        footer {
+            text-align: center;
+            padding: 28px 12px;
+            background: #10070e;
+            border-top: 1px solid #55213f;
+            color: #d8b6ca;
+            font-size: 12px
+        }
+
+        footer strong {
+            display: block;
+            color: #ff9ed8;
+            font: 700 27px 'Cormorant Garamond', serif
+        }
+
+        .status {
+            font-size: 12px;
+            color: #ff9ed8;
+            text-align: center;
+            padding: 8px
+        }
+
+        @media(max-width:900px) {
+            .grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr))
+            }
+        }
+
+        @media(max-width:600px) {
+            .grid {
+                grid-template-columns: 1fr
+            }
+
+            .toolbar input {
+                flex: 1;
+                min-width: 120px
+            }
+
+            .table {
+                font-size: 10px
+            }
+
+            .table th,
+            .table td {
+                padding: 7px 5px
+            }
+        }
+
+        @media print {
+            .toolbar,
+            .nav {
+                display: none
+            }
+
+            .grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            body,
+            header,
+            footer,
+            .card,
+            .table {
+                background: white;
+                color: #111
+            }
+
+            .head h2,
+            .name,
+            .price,
+            .desc,
+            footer,
+            .table th,
+            .table td {
+                color: #111;
+                text-shadow: none
+            }
+
+            .card {
+                box-shadow: none;
+                border: 1px solid #aaa;
+                break-inside: avoid
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div style="color:#ff4fb7;font-size:25px">✿ ♛ ✿</div>
+        <h1>LA ROSA</h1>
+        <div class="sub">HOOKAH RESTAURANT · RESTAURANT & LOUNGE</div>
+        <span class="pill">◷ Ouvert à partir de 12h00</span>
+        <a class="pill" style="text-decoration:none" href="tel:+212643059020">☎ +212 643-059020</a>
+        <span class="pill">♫ Rai · Chaabi · Khaliji</span>
+    </header>
+
+    <!-- Reset Panel moved outside toolbar -->
+    <section id="resetPanel" style="display:none;max-width:480px;margin:25px auto;padding:24px;background:linear-gradient(145deg,#351027,#160a15);border:1px solid #ff4fb7;border-radius:20px;box-shadow:0 15px 40px #ff168e22;color:#fff1fa">
+        <h2 style="color:#ff9ed8;text-align:center">LA ROSA ♡</h2>
+        <p style="text-align:center">Changer votre mot de passe</p>
+        <form id="resetForm">
+            <label for="newPassword">Nouveau mot de passe</label>
+            <input id="newPassword" type="password" minlength="8" autocomplete="new-password" required style="display:block;width:100%;padding:12px;margin:8px 0 16px;background:#21101d;color:white;border:1px solid #753354;border-radius:10px">
+            <label for="confirmPassword">Confirmer le mot de passe</label>
+            <input id="confirmPassword" type="password" minlength="8" autocomplete="new-password" required style="display:block;width:100%;padding:12px;margin:8px 0 16px;background:#21101d;color:white;border:1px solid #753354;border-radius:10px">
+            <button type="submit" style="width:100%;padding:12px;background:#ff4fb7;color:#190916;border:0;border-radius:10px;font-weight:bold;cursor:pointer">Enregistrer le mot de passe</button>
+            <p id="resetMessage" role="status" style="font-size:13px;line-height:1.5"></p>
+        </form>
+    </section>
+
+    <div class="toolbar">
+        <input id="search" placeholder="🔎 Rechercher un plat…" aria-label="Rechercher">
+        <select id="sort">
+            <option value="default">Ordre du menu</option>
+            <option value="asc">Prix croissant</option>
+            <option value="desc">Prix décroissant</option>
+        </select>
+        <button id="motion">✨ 3D activé</button>
+        <button id="print">Imprimer / PDF</button>
+    </div>
+
+    <main>
+        <p style="text-align:center;color:#d5b8ca;font-size:13px">Une cuisine généreuse, une ambiance unique. Good Food · Good Vibes Only.</p>
+        <div class="status" id="status">Chargement du menu…</div>
+        <nav class="nav" id="nav"></nav>
+        <div class="grid" id="grid"></div>
+        <p class="empty" id="empty">Aucun résultat trouvé.</p>
+        <section class="card hookah" id="hookah">
+            <div class="head"><span class="emoji">💨</span>
+                <h2>Hookah (Chicha)</h2>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Parfum / Goût</th>
+                        <th>Classique</th>
+                        <th>Kaloud</th>
+                        <th>Quasar</th>
+                    </tr>
+                </thead>
+                <tbody id="hookahBody"></tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <strong>LA ROSA ♡</strong>Good Food · Good Vibes Only<br>
+        Info & Réservations : <a style="color:#ff9ed8" href="tel:+212643059020">+212 643-059020</a><br><br>
+        Prix en dirhams marocains (DH).
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script>
+        const DEFAULT_SECTIONS = [
+            {
+                id: "pizza", icon: "🍕", title: "Pizzas", items: [
+                    ["Margarita", "Sauce tomate, mozzarella, basilic", 60], ["Primavera", "Sauce tomate, aubergine, oignons, courgettes, poivron, origan", 65], ["La Galina", "Crème parmesan, poulet mariné, champignon, mozzarella, parmesan, pesto genovese", 75], ["Thuna", "Sauce tomate, oignon, poivron, thon", 75], ["Antica", "Sauce tomate, viande hachée, poivron, basilic", 80], ["Capricciosa", "Sauce tomate, mozzarella, jambon, champignons, artichauts, olives noires", 80], ["Sicilian", "Sauce tomate, mozzarella, olives noires, oignons, poivrons, anchois, origan", 85], ["Fruit Di Mare", "Sauce rose, pesto, crevettes, calamar, gambas, moules", 85], ["Salmone", "Saumon, sauce rossa, parmesan, épinards, zeste de citron", 90], ["Fromaggi", "Sauce tomate, mozzarella, gorgonzola, parmesan, ricotta, fromage rouge", 95], ["El Momento Tartufo", "Crème parmesan, champignon, roquette, truffe, stracciatella", 110]]
+            },
+            {
+                id: "fastfood", icon: "🍔", title: "Fast Food", items: [
+                    ["Tacos Poulet", "", 55], ["Tacos Poulet Gratiné", "", 65], ["Tacos Viande Hachée", "", 60], ["Tacos Viande Hachée Gratiné", "", 70], ["Tacos Mix", "", 65], ["Tacos Mix Gratiné", "", 75], ["Tacos Cordon Bleu", "", 70], ["Tacos Cordon Bleu Gratiné", "", 80], ["Burger Cheese", "", 60], ["Double Cheese Burger", "", 70], ["Zinger Burger", "Avocat, pêche confite, oignon caramélisé, poulet crispy", 80], ["Wrap Poulet", "", 60], ["Wrap Viande Hachée", "", 70], ["Wrap Chicken Crispy", "", 80], ["Wrap Mix", "", 75], ["Sandwich Poulet", "", 45], ["Sandwich Viande Hachée", "", 50], ["Sandwich Mix", "", 55], ["Sandwich Poulet Crispy", "", 60]]
+            },
+            {
+                id: "pasta", icon: "🍝", title: "Pasta & Plats Chauds", items: [
+                    ["Pasticcio Poulet", "", 55], ["Pasticcio Viande Hachée / Charcuterie", "", 60], ["Pasticcio Mix", "", 65], ["Pasticcio Fruit de Mer", "", 70], ["Kapsalon Poulet", "", 60], ["Kapsalon Viande Hachée / Charcuterie", "", 65], ["Kapsalon Mix", "", 70], ["Kapsalon Fruit de Mer", "", 75], ["Pasta Arrabiata", "Penne / spaghetti / tagliatelle", 60], ["Pasta Bolognaise", "Penne / spaghetti / tagliatelle", 70], ["Pasta Carbonara / Alla Norma", "", 75], ["Pasta Saumon", "", 80], ["Pasta Fruit de Mer", "", 85], ["Pasta Truffes", "", 95]]
+            },
+            {
+                id: "grill", icon: "🥩", title: "Plats & Grillades", items: [
+                    ["Brochettes de Poulet Grillées", "", 85], ["Émincé de Poulet Sauce Soja & Demi-Glace", "", 85], ["Émincé Poulet à l’ancienne", "", 95], ["Brochettes de Viande Hachée Grillées / Cordon Bleu", "", 95], ["Émincé de Bœuf Sauce Demi-Glace", "", 100], ["Brochettes Mixtes Poulet & Viande Hachée", "", 110], ["Mix Grillé", "Poulet, viande hachée, bœuf, foie, saucisses, côte d’agneau", 120], ["Entrecôte Grillée", "", 130]]
+            },
+            {
+                id: "asian", icon: "🥢", title: "Plats Asiatiques", items: [
+                    ["Wok Poulet & Légumes / Poulet Curry Indien", "", 95], ["Wok Bœuf & Légumes / Pilons de Poulet", "", 110], ["Bœuf Mongol", "", 120]]
+            },
+            {
+                id: "sandwich", icon: "🥪", title: "Sandwich", items: [
+                    ["Poulet", "", 45], ["Viande Hachée", "", 50], ["Mix", "", 55], ["Poulet Crispy", "", 60]]
+            },
+            {
+                id: "salad", icon: "🥗", title: "Salades & Entrées", items: [
+                    ["Assiette Frite", "", 50], ["Bocconcini Fritti", "", 65], ["Salade Mer Terre", "", 75], ["Salade César / Tomate à La Rossa", "", 80], ["Tataki de Saumon, Mangue & Avocat Brûlé", "", 90], ["Gambas Tempura, Teriyaki & Aïoli", "", 90]]
+            },
+            {
+                id: "hotdrinks", icon: "☕", title: "Boissons Chaudes", items: [
+                    ["Espresso / Café Nosnos / Lait au Chocolat / Chocolat Chaud / Verveine Nature", "", 30], ["Double Espresso / Américain / Café Crème / Cappuccino / Verveine au lait / Thé Noir", "", 35], ["Cappuccino Chantilly", "", 40], ["Thé Menthe / Thé Tangéroise", "", 50]]
+            },
+            {
+                id: "cold-drinks", icon: "🥤", title: "Boissons Froides & Sodas", items: [
+                    ["Sodas (Coca, Zero, Sprite, Schweppes, Fanta, Poms) / Sidi Ali 50cl / Oulmes 50cl", "", 30], ["Schweppes Agrumes / Orangina / Oasis / Sidi Ali 75cl / Oulmes 75cl", "", 50], ["Red Bull", "", 60]]
+            },
+            {
+                id: "juice", icon: "🧃", title: "Jus Frais", items: [
+                    ["Orange / Carotte / Concombre / Citron", "", 40], ["Citron Menthe / Banane / Avocat / Kiwi / Fraise", "", 45], ["Mangue / Ananas", "", 50], ["Fruit Sec / Panaché", "", 55]]
+            },
+            {
+                id: "mocktails", icon: "🍹", title: "Mocktails & Virgins", items: [
+                    ["Rose Mojito / Mojito Classic", "", 60], ["Mojito Passion / Fruit Rouge / TikTok Love / Fraise / Gingembre / Vanille / Energy / Piña Colada / Borbora / Refresh", "", 65], ["Mojito Mi Amor / Kiwi / Pastèque / Bubble Gum / Exotique / La Rosa", "", 70], ["Mojito Red Bull", "", 80]]
+            },
+            {
+                id: "milkshakes", icon: "🥤", title: "Milkshakes", items: [
+                    ["Vanille / Fraise / Chocolat / Banane", "", 70], ["Oreo", "", 75], ["Pistache / La Rosa Frais Avocat Glace Vanille", "", 80]]
+            },
+            {
+                id: "desserts", icon: "🍰", title: "Desserts", items: [
+                    ["Panna Cota", "", 45], ["Assiette de Fruit", "", 50], ["Pain Perdu", "", 55], ["Profiterole Glace / Fondant Chocolat / Boule de Glace", "", 60]]
+            }
+        ];
+        const DEFAULT_HOOKAH = [["Pomme / Menthe / Pomme Menthe", 80, 150, 200], ["Hawaii / Mi Amor / Love / Blue Berry", 100, 150, 200], ["Gum / Lady Killer / Menthe Sucrée", 100, 150, 200], ["Réglisse Menthe / Réglisse Pomme / Swiss Bonbon", 100, 150, 200]];
+        let sections = DEFAULT_SECTIONS, hookah = DEFAULT_HOOKAH, motion = true;
+        const $ = id => document.getElementById(id);
+        function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])) }
+
+        async function loadMenu() {
+            if (window.LA_ROSA_CONFIG?.SUPABASE_URL && window.LA_ROSA_CONFIG?.SUPABASE_ANON_KEY && window.supabase) {
+                try {
+                    const client = window.supabase.createClient(LA_ROSA_CONFIG.SUPABASE_URL, LA_ROSA_CONFIG.SUPABASE_ANON_KEY);
+                    const { data, error } = await client.from('menu_sections').select('id,slug,title,icon,sort_order,menu_items(id,name,description,price,sort_order)').order('sort_order');
+                    if (error) throw error;
+                    if (data?.length) { sections = data.map(s => ({ id: s.slug, icon: s.icon || '🍽️', title: s.title, items: (s.menu_items || []).sort((a, b) => a.sort_order - b.sort_order).map(i => [i.name, i.description || '', Number(i.price)]) })); }
+                    const { data: hd, error: he } = await client.from('hookah_prices').select('flavour,classic_price,kaloud_price,quasar_price,sort_order').order('sort_order');
+                    if (!he && hd?.length) hookah = hd.map(x => [x.flavour, Number(x.classic_price), Number(x.kaloud_price), Number(x.quasar_price)]);
+                    $('status').textContent = 'Menu à jour ✓';
+                } catch (e) { $('status').textContent = 'Menu de démonstration affiché — vérifiez la configuration Supabase.'; console.error(e) }
+            } else $('status').textContent = 'Menu de démonstration — configurez Supabase pour activer les mises à jour en ligne.';
+            render();
+        }
+
+        function render() {
+            const q = $('search').value.trim().toLocaleLowerCase('fr'), 
+                  sort = $('sort').value, 
+                  grid = $('grid'); 
+            grid.innerHTML = ''; 
+            let count = 0;
+            $('nav').innerHTML = sections.map(s => `<a href="#${esc(s.id)}">${esc(s.icon)} ${esc(s.title)}</a>`).join('');
+            sections.forEach(s => { 
+                let items = s.items.filter(i => (s.title + ' ' + i[0] + ' ' + (i[1] || '')).toLocaleLowerCase('fr').includes(q)); 
+                if (sort === 'asc') items.sort((a, b) => a[2] - b[2]); 
+                if (sort === 'desc') items.sort((a, b) => b[2] - a[2]); 
+                if (!items.length) return; 
+                count += items.length; 
+                let card = document.createElement('section'); 
+                card.className = 'card'; 
+                card.id = s.id; 
+                card.innerHTML = `<div class="head"><span class="emoji">${esc(s.icon)}</span><h2>${esc(s.title)}</h2></div>` + items.map(i => `<div class="item"><div class="row"><span class="name">${esc(i[0])}</span><span class="price">${esc(i[2])} DH</span></div>${i[1] ? `<div class="desc">${esc(i[1])}</div>` : ''}</div>`).join(''); 
+                grid.appendChild(card); 
+            });
+            $('empty').style.display = count ? 'none' : 'block'; 
+            $('hookah').style.display = q ? 'none' : 'block'; 
+            $('hookahBody').innerHTML = hookah.map(r => `<tr>${r.map((v, i) => `<td>${i ? esc(v) + ' DH' : esc(v)}</td>`).join('')}</tr>`).join('');
+        }
+
+        // Auth & Reset Password Logic
+        const resetPanel = $('resetPanel');
+        const resetForm = $('resetForm');
+        const resetMessage = $('resetMessage');
+        let recoverySessionReady = false;
+
+        if (window.LA_ROSA_CONFIG?.SUPABASE_URL && window.LA_ROSA_CONFIG?.SUPABASE_ANON_KEY && window.supabase) {
+            const recoveryClient = window.supabase.createClient(
+                window.LA_ROSA_CONFIG.SUPABASE_URL,
+                window.LA_ROSA_CONFIG.SUPABASE_ANON_KEY
+            );
+
+            function showResetForm() {
+                resetPanel.style.display = 'block';
+                resetPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            recoveryClient.auth.onAuthStateChange((event, session) => {
+                if (event === 'PASSWORD_RECOVERY' && session) {
+                    recoverySessionReady = true;
+                    showResetForm();
+                }
+            });
+
+            if (location.hash.includes('type=recovery')) {
+                showResetForm();
+            }
+
+            resetForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                resetMessage.textContent = '';
+
+                const password = $('newPassword').value;
+                const confirmation = $('confirmPassword').value;
+
+                if (password.length < 8) {
+                    resetMessage.textContent = 'Le mot de passe doit contenir au moins 8 caractères.';
+                    return;
+                }
+
+                if (password !== confirmation) {
+                    resetMessage.textContent = 'Les deux mots de passe ne correspondent pas.';
+                    return;
+                }
+
+                const { data: { session } } = await recoveryClient.auth.getSession();
+
+                if (!session || !recoverySessionReady) {
+                    resetMessage.textContent = 'Lien invalide ou expiré. Demandez un nouveau lien de réinitialisation.';
+                    return;
+                }
+
+                const { error } = await recoveryClient.auth.updateUser({ password });
+
+                if (error) {
+                    resetMessage.textContent = 'Erreur : ' + error.message;
+                    return;
+                }
+
+                resetMessage.textContent = 'Mot de passe modifié avec succès. Vous pouvez maintenant vous connecter.';
+                resetForm.reset();
+                recoverySessionReady = false;
+            });
+        }
+
+        $('search').addEventListener('input', render);$('sort').addEventListener('change', render);
+        $('print').onclick = () => window.print();$('motion').onclick = () => { 
+            motion = !motion; 
+            $('motion').textContent = '✨ 3D ' + (motion ? 'activé' : 'désactivé'); 
+            document.querySelectorAll('.card').forEach(c => c.style.transform = '');
+        };
+
+        document.addEventListener('pointermove', e => { 
+            if (!motion || innerWidth < 700 || e.pointerType === 'touch') return; 
+            let c = e.target.closest('.card'); 
+            if (!c) return; 
+            let r = c.getBoundingClientRect(); 
+            c.style.transform = `rotateX(${((.5 - (e.clientY - r.top) / r.height)) * 10}deg) rotateY(${(((e.clientX - r.left) / r.width) - .5) * 10}deg) translateZ(4px)`; 
+        });
+
+        document.addEventListener('pointerout', e => { 
+            let c = e.target.closest('.card'); 
+            if (c && !c.contains(e.relatedTarget)) c.style.transform = ''; 
+        });
+
+        loadMenu();
+    </script>
+</body>
+
+</html>
